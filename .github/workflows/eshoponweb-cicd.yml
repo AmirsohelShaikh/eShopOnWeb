@@ -75,15 +75,15 @@ jobs:
     - name: Azure Login
       uses: azure/login@v2
       with:
-      
+        creds: ${{ b94abfc92f344e269479f60a82707fcb }}
     # Deploy Azure WebApp using Bicep file
     - name: deploy
       uses: azure/arm-deploy@v2
       with:
-        subscriptionId: ${{ env.b45d53e5-4f7a-417e-a01b-26474a637f58 }}
-        resourceGroupName: ${{ env.RG-CTB27-az400-5 }}
+        subscriptionId: ${{ b45d53e5-4f7a-417e-a01b-26474a637f58 }}
+        resourceGroupName: ${{ RG-CTB27-az400-5 }}
         template: bicep-template/webapp.bicep
-        parameters: 'webAppName=${{ env.WEBAPP-NAME }} location=${{ env.eastus }}'
+        parameters: 'webAppName=${{ eshoponweb-webapp-NAME }} location=${{ eastus }}'
         failOnStdErr: false   
     
     # Publish website to Azure App Service (WebApp)
@@ -93,7 +93,7 @@ jobs:
       uses: Azure/webapps-deploy@v3
       with:
         type: ZIP
-        app-name: ${{ env.WEBAPP-NAME  }}
+        app-name: ${{ eshoponweb-webapp-NAME  }}
         package: .net-app/app.zip
 
     # Publish website to Azure App Service using CLI (WebApp)
@@ -101,4 +101,4 @@ jobs:
       uses: Azure/cli@v2
       with:
         inlineScript: |
-             az webapp deploy --name ${{ env.WEBAPP-NAME }} --resource-group ${{ env.RG-CTB27-az400-5 }} --src-path .net-app/app.zip --type zip
+             az webapp deploy --name ${{ eshoponweb-webapp-NAME }} --resource-group ${{ RG-CTB27-az400-5 }} --src-path .net-app/app.zip --type zip
